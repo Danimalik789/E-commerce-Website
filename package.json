@@ -1,0 +1,21 @@
+{
+  "name": "e-commerce-website",
+  "version": "1.0.0",
+  "description": "Creating my first e-commerce website using Mern Stack",
+  "main": "server.js",
+  "scripts": {
+    "start": "node back-end/server",
+    "server": "nodemon back-end/server",
+    "client": "npm start --prefix front-end",
+    "dev" : "concurrently \"npm run server\" \"npm run client\" "
+  },
+  "author": "Danyal Malik",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "nodemon": "^3.1.10"
+  }
+}
