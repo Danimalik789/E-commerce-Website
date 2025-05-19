@@ -1,0 +1,24 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore build output
+build/
+
+# Ignore environment variable files
+.env
+.env.*.local
+.env.local
+
+# Ignore coverage reports (from tests)
+coverage/
+
+# Ignore editor and system files
+.vscode/
+.idea/
+*.log
+*.swp
+.DS_Store
+Thumbs.db
+
+# Optional: lock file (if you're not locking dependencies)
+package-lock.json
