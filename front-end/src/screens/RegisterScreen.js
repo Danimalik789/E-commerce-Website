@@ -48,7 +48,7 @@ const RegisterScreen = () => {
         <Form.Group controlId='name'>
           <Form.Label>Name</Form.Label>
           <Form.Control
-            type='text'
+            type='name'
             placeholder='Enter Your Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
