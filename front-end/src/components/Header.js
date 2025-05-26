@@ -19,7 +19,7 @@ const Header = () => {
       <Navbar
         expand='lg'
         variant='white'
-        collapseOnSelect
+        collapseOnSelect                  
         className='bg-success'
       >
         <Container>
