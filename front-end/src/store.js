@@ -4,8 +4,13 @@ import {
   productListReducer,
 } from "./reducers/productReducers"
 import { cartReducer } from "./reducers/cartReducers"
-import { userLoginReducer } from "./reducers/userReducers"
-import { userRegisterReducer } from "./reducers/userReducers"
+import {
+  userLoginReducer,
+  userRegisterReducer,
+  userDetailsReducer,
+  userUpdateProfileReducer,
+} from "./reducers/userReducers"
+import { orderPayReducer, orderListMyReducer } from "./reducers/orderReducers"
 import {
   orderCreateReducer,
   orderDetailsReducer,
@@ -38,8 +43,12 @@ export const store = configureStore({
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
+    userUpdateProfile: userUpdateProfileReducer,
     orderCreate: orderCreateReducer,
     orderDetails: orderDetailsReducer,
+    orderPay: orderPayReducer,
+    orderListMy: orderListMyReducer,
   },
   preloadedState: initialState,
 })

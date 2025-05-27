@@ -15,7 +15,6 @@ const LoginScreen = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  
   const redirect = new URLSearchParams(location.search).get("redirect") || "/"
 
   const userLogin = useSelector((state) => state.userLogin)
@@ -57,7 +56,7 @@ const LoginScreen = () => {
             onChange={(e) => setPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
-        <Button type='submit' variant='primary'>
+        <Button type='submit' variant='primary' className='my-2'>
           Sign in
         </Button>
       </Form>
