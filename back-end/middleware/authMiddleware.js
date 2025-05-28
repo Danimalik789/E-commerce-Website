@@ -36,7 +36,7 @@ const admin = (req, res, next) => {
     next()
   } else {
     res.status(401)
-    throw new Error("Nor authorized as an admin")
+    throw new Error("Not authorized as an admin")
   }
 }
 export { protect, admin }
