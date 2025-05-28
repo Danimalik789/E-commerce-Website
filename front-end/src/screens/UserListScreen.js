@@ -68,7 +68,7 @@ const UserListScreen = () => {
                 </td>
                 <td>
                   <Link
-                    to={`/user/${user._id}/edit`}
+                    to={`/admin/user/${user._id}/edit`}
                     className='btn-sm'
                     variant='light'
                   >
