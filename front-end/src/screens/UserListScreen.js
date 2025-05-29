@@ -43,7 +43,7 @@ const UserListScreen = () => {
       ) : users && users.length > 0 ? (
         <Table striped bordered hover responsive className='table-sm'>
           <thead>
-            <tr>
+            <tr style={{ color: "white" }}>
               <th>ID</th>
               <th>NAME</th>
               <th>EMAIL</th>
@@ -67,12 +67,10 @@ const UserListScreen = () => {
                   )}
                 </td>
                 <td>
-                  <Link
-                    to={`/admin/user/${user._id}/edit`}
-                    className='btn-sm'
-                    variant='light'
-                  >
-                    <i className='fas fa-edit'></i>
+                  <Link to={`/admin/user/${user._id}/edit`}>
+                    <Button className='btn-sm me-auto' variant='light'>
+                      <i className='fas fa-edit'></i>
+                    </Button>
                   </Link>
                   <Button
                     variant='danger'
