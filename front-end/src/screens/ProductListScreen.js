@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 import { Table, Button, Row, Col } from "react-bootstrap"
-import { Link, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
@@ -10,7 +10,6 @@ import {
   createProduct,
 } from "../actions/productActions"
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants"
-import e from "express"
 
 const ProductListScreen = () => {
   const dispatch = useDispatch()
@@ -26,11 +25,14 @@ const ProductListScreen = () => {
     success: successDelete,
   } = productDelete
 
+  const productCreate = useSelector((state) => state.productCreate)
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate
   const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
-
-  const  = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
   useEffect(() => {
@@ -44,14 +46,14 @@ const ProductListScreen = () => {
     } else {
       dispatch(listProducts())
     }
-  }, [dispatch, navigate, userInfo, successDelete, successCreate])
+  }, [dispatch, navigate, userInfo, successDelete,createdProduct, successCreate])
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure? ")) {
       dispatch(deleteProduct(id))
     }
   }
-  const createProductHandler = (product) => {
+  const createProductHandler = () => {
     dispatch(createProduct())
   }
 
@@ -69,6 +71,8 @@ const ProductListScreen = () => {
       </Row>
       {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
 
       {loading ? (
         <Loader />
