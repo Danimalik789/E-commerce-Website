@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit"
 import {
   productDetailsReducer,
   productListReducer,
+  productDeleteReducer,
 } from "./reducers/productReducers"
 import { cartReducer } from "./reducers/cartReducers"
 import {
@@ -43,6 +44,7 @@ export const store = configureStore({
   reducer: {
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    productDelete: productDeleteReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
