@@ -4,7 +4,13 @@ import { Link, useNavigate } from "react-router"
 import { useDispatch, useSelector } from "react-redux"
 import Loader from "../components/Loader"
 import Message from "../components/Message"
-import { listProducts, deleteProduct } from "../actions/productActions"
+import {
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from "../actions/productActions"
+import { PRODUCT_CREATE_RESET } from "../constants/productConstants"
+import e from "express"
 
 const ProductListScreen = () => {
   const dispatch = useDispatch()
@@ -23,13 +29,22 @@ const ProductListScreen = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+
+  const  = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts())
-    } else {
+    dispatch({ type: PRODUCT_CREATE_RESET })
+
+    if (!userInfo.isAdmin) {
       navigate("/login")
     }
-  }, [dispatch, navigate, userInfo, successDelete])
+    if (successCreate) {
+      navigate(`/admin/product/${createdProduct._id}/edit`)
+    } else {
+      dispatch(listProducts())
+    }
+  }, [dispatch, navigate, userInfo, successDelete, successCreate])
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure? ")) {
@@ -37,7 +52,7 @@ const ProductListScreen = () => {
     }
   }
   const createProductHandler = (product) => {
-    console.log("Product created")
+    dispatch(createProduct())
   }
 
   return (

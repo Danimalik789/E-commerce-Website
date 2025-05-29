@@ -54,6 +54,11 @@ const ProfileScreen = () => {
     }
   }
 
+  const detailHandler = (order) => {
+    //To DO
+    console.log("Details")
+  }
+
   return (
     <Row>
       <Col md={3}>
@@ -122,18 +127,20 @@ const ProfileScreen = () => {
           <Table striped bordered hover responsive className='table-sm'>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>ITEM</th>
                 <th>DATE</th>
-                <th>TOTAL</th>
                 <th>PAID</th>
                 <th>DELIVERED</th>
+                <th>TOTAL</th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>{order._id}</td>
+                <tr>
+                  <td>
+                    {order.orderItems.map((item) => item.name).join(", ")}
+                  </td>
                   <td>
                     {order.createdAt ? order.createdAt.substring(0, 10) : "N/A"}
                   </td>
@@ -159,10 +166,15 @@ const ProfileScreen = () => {
                       <i className='fas fa-times' style={{ color: "red" }}></i>
                     )}
                   </td>
+                  <td>${order.totalPrice.toFixed(2)}</td>
 
                   <td>
                     <Container to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
+                      <Button
+                        className='btn-sm'
+                        variant='light'
+                        onClick={detailHandler}
+                      >
                         Details
                       </Button>
                     </Container>
