@@ -14,9 +14,6 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Rating from "../components/Rating"
 
-
-
-
 const ProductScreen = () => {
   const [qty, setQty] = useState(1)
   const { id } = useParams()
