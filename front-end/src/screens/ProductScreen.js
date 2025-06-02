@@ -13,12 +13,12 @@ import {
   Button,
   ListGroupItem,
   Form,
+  FormGroup,
 } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Rating from "../components/Rating"
 import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants"
 import Message from "../components/Message"
-import Loader from "../components/Loader"
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1)
@@ -40,11 +40,29 @@ const ProductScreen = () => {
     productCreateReview
 
   useEffect(() => {
+    if (successProductReview) {
+      alert("Review Submitted")
+      setRating(0)
+      setComment("")
+      dispatch({
+        type: PRODUCT_CREATE_REVIEW_RESET,
+      })
+    }
     dispatch(getProductDetails(id))
-  }, [dispatch, id])
+  }, [dispatch, id, successProductReview])
 
   const addToCartHandler = () => {
     navigate(`/cart/${id}?qty=${qty}`)
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+    dispatch(
+      createProductReview(id, {
+        rating,
+        comment,
+      })
+    )
   }
   return (
     <>
@@ -137,14 +155,48 @@ const ProductScreen = () => {
               <ListGroupItem key={review._id}>
                 <strong>{review.name}</strong>
                 <Rating value={review.rating} />
-                <p>{review.createdAt.substring(0, 10)}</p>
+                <p>
+                  {review.createdAt ? review.createdAt.substring(0, 10) : ""}
+                </p>
+
                 <p>{review.comment}</p>
               </ListGroupItem>
             ))}
             <ListGroupItem>
               <h2>Write a Customer Review</h2>
+              {errorProductReview && (
+                <Message variant='danger'>{errorProductReview}</Message>
+              )}
               {userInfo ? (
-                <h1> write a review</h1>
+                <Form onSubmit={submitHandler}>
+                  <FormGroup controlId='rating'>
+                    <Form.Label>Rating</Form.Label>
+                    <Form.Control
+                      as='select'
+                      value={rating}
+                      onChange={(e) => setRating(e.target.value)}
+                    >
+                      <option value=''>Select...</option>
+                      <option value='1'>1 - Poor</option>
+                      <option value='2'>2 - Fair</option>
+                      <option value='3'>3 - Good</option>
+                      <option value='4'>4 - Very Good</option>
+                      <option value='5'>5 - Excellent</option>
+                    </Form.Control>
+                  </FormGroup>
+                  <FormGroup controlId='comment'>
+                    <Form.Label>Comment</Form.Label>
+                    <Form.Control
+                      as='textarea'
+                      row='4'
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    ></Form.Control>
+                  </FormGroup>
+                  <Button type='submit' variant='primary' className='my-2'>
+                    Submit
+                  </Button>
+                </Form>
               ) : (
                 <Message>
                   Please <Link to='/login'>sign in</Link>to write a review
