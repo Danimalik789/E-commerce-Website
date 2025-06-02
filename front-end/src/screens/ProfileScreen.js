@@ -113,7 +113,14 @@ const ProfileScreen = () => {
         )}
       </Col>
       <Col md={9}>
-        <h2>My Orders</h2>
+        <h2
+          style={{
+            color: "white",
+          }}
+        >
+          My Orders
+        </h2>
+
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (

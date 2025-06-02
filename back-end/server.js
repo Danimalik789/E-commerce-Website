@@ -1,4 +1,5 @@
 import express from "express"
+import morgan from "morgan"
 import dotenv from "dotenv"
 import path from "path"
 import colors from "colors"
@@ -16,6 +17,10 @@ connectDB()
 
 // Initialize App
 const app = express()
+
+if(process.env.NODE_ENV === 'development'){
+  app.use(morgan('dev'))
+}
 
 // For accepting json data in the body // Consider it as a middleware or a body parser
 app.use(express.json())
