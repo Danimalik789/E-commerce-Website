@@ -16,10 +16,12 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from "./reducers/userReducers"
-import { orderPayReducer, orderListMyReducer } from "./reducers/orderReducers"
 import {
   orderCreateReducer,
   orderDetailsReducer,
+  orderListMyReducer,
+  orderPayReducer,
+  orderListReducer,
 } from "./reducers/orderReducers"
 
 const cartItemsFromStorage = localStorage.getItem("cartItems")
@@ -61,6 +63,7 @@ export const store = configureStore({
     orderDetails: orderDetailsReducer,
     orderPay: orderPayReducer,
     orderListMy: orderListMyReducer,
+    orderList: orderListReducer,
   },
   preloadedState: initialState,
 })

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
-import { Table, Form, Button, Row, Col, Container } from "react-bootstrap"
+import { Table, Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
 import { getUserDetails, updateUserProfile } from "../actions/userActions"
@@ -52,11 +52,6 @@ const ProfileScreen = () => {
     } else {
       dispatch(updateUserProfile({ id: user._id, name, email, password }))
     }
-  }
-
-  const detailHandler = (order) => {
-    //To DO
-    console.log("Details")
   }
 
   return (
@@ -137,7 +132,7 @@ const ProfileScreen = () => {
             </thead>
             <tbody>
               {orders.map((order) => (
-                <tr>
+                <tr key={order._id}>
                   <td>
                     {order.orderItems.map((item) => item.name).join(", ")}
                   </td>
@@ -169,15 +164,11 @@ const ProfileScreen = () => {
                   <td>${order.totalPrice.toFixed(2)}</td>
 
                   <td>
-                    <Container to={`/order/${order._id}`}>
-                      <Button
-                        className='btn-sm'
-                        variant='light'
-                        onClick={detailHandler}
-                      >
+                    <Link to={`/order/${order._id}`}>
+                      <Button className='btn-sm' variant='light'>
                         Details
                       </Button>
-                    </Container>
+                    </Link>
                   </td>
                 </tr>
               ))}

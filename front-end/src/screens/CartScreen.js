@@ -43,6 +43,11 @@ const CartScreen = () => {
   return (
     <Row>
       <Col md={8}>
+        <Link to={`/product/${productId}`}>
+          <Button variant='light' type='button'>
+            Go Back
+          </Button>
+        </Link>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message style={{ color: "wheat" }}>

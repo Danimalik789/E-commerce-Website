@@ -6,11 +6,12 @@ import {
   Image,
   Card,
   ListGroupItem,
+  Button,
 } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import Message from "../components/Message"
 import Loader from "../components/Loader"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { getOrderDetails } from "../actions/orderActions"
 
 const OrderScreen = () => {
@@ -38,6 +39,11 @@ const OrderScreen = () => {
   ) : (
     <>
       {" "}
+      <Link to={"/profile"}>
+        <Button type='button' variant='light'>
+          Go Back
+        </Button>
+      </Link>
       <h1>Order {order._id}</h1>
       <Row>
         <Col md={8}>
@@ -58,7 +64,9 @@ const OrderScreen = () => {
                 {order.shippingAddress.country}
               </p>
               {order.isDelivered ? (
-                <Message variant='success'>Paid on {order.deliveredAt}</Message>
+                <Message variant='success'>
+                  Delivered on {order.deliveredAt}
+                </Message>
               ) : (
                 <Message variant='danger'>Not Delivered</Message>
               )}
@@ -71,7 +79,10 @@ const OrderScreen = () => {
                 {order.paymentMethod}
               </p>
               {order.isPaid ? (
-                <Message variant='success'>Paid on {order.paidAt}</Message>
+                <Message variant='success'>
+                  Paid{" "}
+                  {order.paidAt ? `on ${order.paidAt.substring(0, 10)}` : ""}
+                </Message>
               ) : (
                 <Message variant='danger'>Not paid</Message>
               )}
