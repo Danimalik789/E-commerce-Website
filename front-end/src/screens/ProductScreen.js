@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getProductDetails } from "../actions/productActions"
+import {
+  getProductDetails,
+  createProductReview,
+} from "../actions/productActions"
 import {
   Row,
   Col,
@@ -13,16 +16,28 @@ import {
 } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Rating from "../components/Rating"
+import { PRODUCT_CREATE_REVIEW_RESET } from "../constants/productConstants"
+import Message from "../components/Message"
+import Loader from "../components/Loader"
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1)
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState("")
   const { id } = useParams()
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
+
+  const productCreateReview = useSelector((state) => state.productCreateReview)
+  const { success: successProductReview, error: errorProductReview } =
+    productCreateReview
 
   useEffect(() => {
     dispatch(getProductDetails(id))
@@ -111,6 +126,32 @@ const ProductScreen = () => {
               </ListGroupItem>
             </ListGroup>
           </Card>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6}>
+          <h2>Reviews</h2>
+          {product.reviews.length === 0 && <Message>No Reviews</Message>}
+          <ListGroup variant='flush'>
+            {product.reviews.map((review) => (
+              <ListGroupItem key={review._id}>
+                <strong>{review.name}</strong>
+                <Rating value={review.rating} />
+                <p>{review.createdAt.substring(0, 10)}</p>
+                <p>{review.comment}</p>
+              </ListGroupItem>
+            ))}
+            <ListGroupItem>
+              <h2>Write a Customer Review</h2>
+              {userInfo ? (
+                <h1> write a review</h1>
+              ) : (
+                <Message>
+                  Please <Link to='/login'>sign in</Link>to write a review
+                </Message>
+              )}
+            </ListGroupItem>
+          </ListGroup>
         </Col>
       </Row>
     </>
