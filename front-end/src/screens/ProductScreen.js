@@ -33,7 +33,7 @@ const ProductScreen = () => {
   const { userInfo } = userLogin
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const { product } = productDetails
 
   const productCreateReview = useSelector((state) => state.productCreateReview)
   const { success: successProductReview, error: errorProductReview } =

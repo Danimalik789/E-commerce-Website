@@ -18,6 +18,7 @@ import ProductListScreen from "./screens/ProductListScreen"
 import ProductEditScreen from "./screens/ProductEditScreen"
 import UserEditScreen from "./screens/UserEditScreen"
 import ProfileScreen from "./screens/ProfileScreen"
+import PaymentForm from "./components/PaymentForm"
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
             <Route path='/product/:id' element={<ProductScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />
             <Route path='/cart/:id?' element={<CartScreen />} />
+            <Route path='/payments/make-payment' element={<PaymentForm />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/shipping' element={<ShippingScreen />} />
@@ -40,6 +42,7 @@ const App = () => {
             <Route path='/admin/productlist' element={<ProductListScreen />} />
             <Route path='/admin/orderlist' element={<OrderListScreen />} />
             <Route path='/admin/user/:id/edit' element={<UserEditScreen />} />
+
             <Route
               path='/admin/product/:id/edit'
               element={<ProductEditScreen />}

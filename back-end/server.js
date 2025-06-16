@@ -10,6 +10,7 @@ import productRoutes from "./routes/productRoutes.js"
 import userRoutes from "./routes/userRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
 import uploadRoutes from "./routes/uploadRoutes.js"
+import paymentRoutes from "./routes/paymentRoutes.js"
 
 dotenv.config()
 
@@ -18,8 +19,8 @@ connectDB()
 // Initialize App
 const app = express()
 
-if(process.env.NODE_ENV === 'development'){
-  app.use(morgan('dev'))
+if (process.env.NODE_ENV === "development") {
+  app.use(morgan("dev"))
 }
 
 // For accepting json data in the body // Consider it as a middleware or a body parser
@@ -34,6 +35,7 @@ app.use("/api/products", productRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/orders", orderRoutes)
 app.use("/api/uploads", uploadRoutes)
+app.use("/api/payments", paymentRoutes)
 
 const __dirname = path.resolve()
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")))
