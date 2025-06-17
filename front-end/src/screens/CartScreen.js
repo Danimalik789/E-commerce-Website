@@ -43,15 +43,13 @@ const CartScreen = () => {
   return (
     <Row>
       <Col md={8}>
-        <Link to={`/product/${productId}`}>
-          <Button variant='light' type='button'>
-            Go Back
-          </Button>
-        </Link>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message style={{ color: "wheat" }}>
-            Your cart is empty <Link to='/'>Go Back</Link>
+            Your cart is empty{" "}
+            <Link to='/' style={{ color: "black", hover: { color: "white" } }}>
+              Go Back
+            </Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>

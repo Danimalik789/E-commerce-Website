@@ -18,7 +18,7 @@ import ProductListScreen from "./screens/ProductListScreen"
 import ProductEditScreen from "./screens/ProductEditScreen"
 import UserEditScreen from "./screens/UserEditScreen"
 import ProfileScreen from "./screens/ProfileScreen"
-import PaymentForm from "./components/PaymentForm"
+import PaymentFormScreen from "./screens/PaymentFormScreen"
 
 const App = () => {
   return (
@@ -31,11 +31,14 @@ const App = () => {
             <Route path='/product/:id' element={<ProductScreen />} />
             <Route path='/profile' element={<ProfileScreen />} />
             <Route path='/cart/:id?' element={<CartScreen />} />
-            <Route path='/payments/make-payment' element={<PaymentForm />} />
             <Route path='/login' element={<LoginScreen />} />
             <Route path='/register' element={<RegisterScreen />} />
             <Route path='/shipping' element={<ShippingScreen />} />
             <Route path='/payment' element={<PaymentScreen />} />
+            <Route
+              path='/payments/make-payment/:id'
+              element={<PaymentFormScreen />}
+            />
             <Route path='/placeorder' element={<PlaceOrderScreen />} />
             <Route path='/order/:id' element={<OrderScreen />} />
             <Route path='/admin/userlist' element={<UserListScreen />} />

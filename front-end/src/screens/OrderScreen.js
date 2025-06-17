@@ -39,7 +39,7 @@ const OrderScreen = () => {
   ) : (
     <>
       {" "}
-      <Link to={"/profile"}>
+      <Link to={"/"}>
         <Button type='button' variant='light'>
           Go Back
         </Button>

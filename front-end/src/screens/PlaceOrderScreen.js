@@ -1,6 +1,5 @@
 import React, { useEffect } from "react"
-import { Elements } from "@stripe/react-stripe-js"
-import { loadStripe } from "@stripe/stripe-js"
+
 import {
   Col,
   Row,
@@ -16,10 +15,7 @@ import Message from "../components/Message"
 import CheckoutSteps from "../components/CheckoutSteps"
 import { Link, useNavigate } from "react-router-dom"
 import { createOrder } from "../actions/orderActions"
-import PaymentForm from "../components/PaymentForm"
-
-const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
-console.log("Stripe Key:", process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY)
+import { CART_REMOVE_ITEM } from "../constants/cartConstants"
 
 const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart)
@@ -43,6 +39,14 @@ const PlaceOrderScreen = () => {
 
   const orderCreate = useSelector((state) => state.orderCreate)
   const { order, success, error } = orderCreate
+
+  useEffect(() => {
+    if (success) {
+      dispatch({ type: CART_REMOVE_ITEM })
+      localStorage.removeItem("cartItems")
+      navigate(`/payments/make-payment/${order._id}`)
+    }
+  }, [dispatch, navigate, success, order])
 
   const placeOrderHandler = () => {
     dispatch(
@@ -162,11 +166,6 @@ const PlaceOrderScreen = () => {
             </ListGroup>
           </Card>
         </Col>
-        {order && !order.isPaid && (
-          <Elements stripe={stripePromise}>
-            <PaymentForm amount={order.totalPrice} orderId={order._id} />
-          </Elements>
-        )}
       </Row>
     </>
   )
