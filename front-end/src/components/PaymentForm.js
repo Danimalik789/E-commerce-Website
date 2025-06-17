@@ -11,7 +11,7 @@ const PaymentForm = ({ amount, orderId }) => {
 
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_API_BASE}/api/payments/make-payment`, {
+      .post(`${process.env.REACT_APP_API_URL}/api/payments/make-payment`, {
         amount: amount * 100,
       }) // amount in cents
       .then((res) => setClientSecret(res.data.clientSecret))
@@ -27,7 +27,7 @@ const PaymentForm = ({ amount, orderId }) => {
 
     if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
       await axios.put(
-        `${process.env.REACT_APP_API_BASE}/api/orders/${orderId}/pay`,
+        `${process.env.REACT_APP_API_URL}/api/orders/${orderId}/pay`,
         {
           paymentResult: {
             id: result.paymentIntent.id,
