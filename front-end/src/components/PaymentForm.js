@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
 import axios from "../config/axios"
+import { useSelector } from "react-redux"
 
 const PaymentForm = ({ amount, orderId }) => {
   const navigate = useNavigate()
@@ -9,11 +10,23 @@ const PaymentForm = ({ amount, orderId }) => {
   const elements = useElements()
   const [clientSecret, setClientSecret] = useState("")
 
+  const userInfo = useSelector((state) => state.userLogin.userInfo)
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userInfo.token}`,
+    },
+  }
+
   useEffect(() => {
     axios
-      .post(`${process.env.REACT_APP_API_URL}/api/payments/make-payment`, {
-        amount: amount * 100,
-      }) // amount in cents
+      .post(
+        `${process.env.REACT_APP_API_URL}/api/payments/make-payment`,
+        {
+          amount: amount * 100,
+        },
+        config
+      ) // amount in cents
       .then((res) => setClientSecret(res.data.clientSecret))
   }, [amount])
 
@@ -35,7 +48,8 @@ const PaymentForm = ({ amount, orderId }) => {
             update_time: new Date().toISOString(),
             email_address: result.paymentIntent.receipt_email,
           },
-        }
+        },
+        config
       )
       navigate(`/order/${orderId}`) // Redirect to order details
       alert("Payment Successful!")
