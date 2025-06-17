@@ -3,6 +3,7 @@ import morgan from "morgan"
 import dotenv from "dotenv"
 import path from "path"
 import colors from "colors"
+import cors from "cors"
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js"
 import connectDB from "./config/db.js"
 
@@ -18,6 +19,18 @@ connectDB()
 
 // Initialize App
 const app = express()
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://e-commerce-website-frontend-y562.onrender.com",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  })
+)
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"))
