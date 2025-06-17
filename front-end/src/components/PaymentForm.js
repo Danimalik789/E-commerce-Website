@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
-import axios from "axios"
+import axios from "../config/axios"
 
 const PaymentForm = ({ amount, orderId }) => {
   const navigate = useNavigate()
@@ -11,7 +11,9 @@ const PaymentForm = ({ amount, orderId }) => {
 
   useEffect(() => {
     axios
-      .post("/api/payments/make-payment", { amount: amount * 100 }) // amount in cents
+      .post(`${process.env.REACT_APP_API_BASE}/api/payments/make-payment`, {
+        amount: amount * 100,
+      }) // amount in cents
       .then((res) => setClientSecret(res.data.clientSecret))
   }, [amount])
 
@@ -24,14 +26,17 @@ const PaymentForm = ({ amount, orderId }) => {
     })
 
     if (result.paymentIntent && result.paymentIntent.status === "succeeded") {
-      await axios.put(`/api/orders/${orderId}/pay`, {
-        paymentResult: {
-          id: result.paymentIntent.id,
-          status: result.paymentIntent.status,
-          update_time: new Date().toISOString(),
-          email_address: result.paymentIntent.receipt_email,
-        },
-      })
+      await axios.put(
+        `${process.env.REACT_APP_API_BASE}/api/orders/${orderId}/pay`,
+        {
+          paymentResult: {
+            id: result.paymentIntent.id,
+            status: result.paymentIntent.status,
+            update_time: new Date().toISOString(),
+            email_address: result.paymentIntent.receipt_email,
+          },
+        }
+      )
       navigate(`/order/${orderId}`) // Redirect to order details
       alert("Payment Successful!")
       // Dispatch order update, mark as paid here using Redux
