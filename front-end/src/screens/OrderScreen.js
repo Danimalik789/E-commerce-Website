@@ -97,7 +97,7 @@ const OrderScreen = () => {
                   {order.orderItems.map((item, index) => (
                     <ListGroupItem key={index}>
                       <Row>
-                        <Col md={1}>
+                        <Col md={2}>
                           <Image
                             src={item.image}
                             alt={item.name}

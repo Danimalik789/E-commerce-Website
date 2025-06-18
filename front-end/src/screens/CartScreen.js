@@ -43,6 +43,9 @@ const CartScreen = () => {
   return (
     <Row>
       <Col md={8}>
+        <Link to='/' className='btn btn-light my-3'>
+          Go Back
+        </Link>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
           <Message style={{ color: "wheat" }}>
