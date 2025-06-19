@@ -30,6 +30,13 @@ const OrderListScreen = () => {
         <Loader />
       ) : error ? (
         <Message>{error}</Message>
+      ) : orders.length === 0 ? (
+        <p>
+          No Orders found.
+          <Link to='/'>
+            <strong>Order now?</strong>
+          </Link>{" "}
+        </p>
       ) : (
         <Table striped bordered hover responsive className='table-sm'>
           <thead>

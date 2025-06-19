@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Table, Form, Button, Row, Col } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { Link, useNavigate } from "react-router"
+import { Link, useNavigate } from "react-router-dom" // ✅ fix: use react-router-dom
 import Message from "../components/Message"
 import Loader from "../components/Loader"
 import { getUserDetails, updateUserProfile } from "../actions/userActions"
@@ -73,7 +73,7 @@ const ProfileScreen = () => {
                 placeholder='Enter name'
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId='email'>
@@ -83,7 +83,7 @@ const ProfileScreen = () => {
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId='password'>
@@ -93,7 +93,7 @@ const ProfileScreen = () => {
                 placeholder='Enter password'
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Form.Group controlId='confirmPassword'>
@@ -103,7 +103,7 @@ const ProfileScreen = () => {
                 placeholder='Confirm password'
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-              ></Form.Control>
+              />
             </Form.Group>
 
             <Button type='submit' variant='primary' className='my-2'>
@@ -112,15 +112,9 @@ const ProfileScreen = () => {
           </Form>
         )}
       </Col>
-      <Col md={9}>
-        <h2
-          style={{
-            color: "white",
-          }}
-        >
-          My Orders
-        </h2>
 
+      <Col md={9}>
+        <h2 style={{ color: "white" }}>My Orders</h2>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
@@ -138,47 +132,53 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  <td>
-                    {order.orderItems.map((item) => item.name).join(", ")}
-                  </td>
-                  <td>
-                    {order.createdAt ? order.createdAt.substring(0, 10) : "N/A"}
-                  </td>
-                  <td>
-                    {order.isPaid ? (
-                      order.paidAt ? (
-                        order.paidAt.substring(0, 10)
-                      ) : (
-                        "Paid"
-                      )
-                    ) : (
-                      <i className='fas fa-times' style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>
-                    {order.isDelivered ? (
-                      order.deliveredAt ? (
-                        order.deliveredAt.substring(0, 10)
-                      ) : (
-                        "Delivered"
-                      )
-                    ) : (
-                      <i className='fas fa-times' style={{ color: "red" }}></i>
-                    )}
-                  </td>
-                  <td>${order.totalPrice.toFixed(2)}</td>
-
-                  <td>
-                    <Link to={`/order/${order._id}`}>
-                      <Button className='btn-sm' variant='light'>
-                        Details
-                      </Button>
+              {orders.length === 0 ? (
+                <tr>
+                  <td colSpan='6' style={{ color: "white", padding: "1rem" }}>
+                    No Orders Found.
+                    <Link to='/' className='ms-2'>
+                      <strong>Order now?</strong>
                     </Link>
                   </td>
                 </tr>
-              ))}
+              ) : (
+                orders.map((order) => (
+                  <tr key={order._id}>
+                    <td>
+                      {order.orderItems.map((item) => item.name).join(", ")}
+                    </td>
+                    <td>{order.createdAt?.substring(0, 10) || "N/A"}</td>
+                    <td>
+                      {order.isPaid ? (
+                        order.paidAt?.substring(0, 10) || "Paid"
+                      ) : (
+                        <i
+                          className='fas fa-times'
+                          style={{ color: "red" }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>
+                      {order.isDelivered ? (
+                        order.deliveredAt?.substring(0, 10) || "Delivered"
+                      ) : (
+                        <i
+                          className='fas fa-times'
+                          style={{ color: "red" }}
+                        ></i>
+                      )}
+                    </td>
+                    <td>${order.totalPrice.toFixed(2)}</td>
+                    <td>
+                      <Link to={`/order/${order._id}`}>
+                        <Button className='btn-sm' variant='light'>
+                          Details
+                        </Button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </Table>
         )}

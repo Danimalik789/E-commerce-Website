@@ -12,7 +12,6 @@ const HomeScreen = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    console.log("Dispatching listProducts with keyword:", keyword)
     dispatch(listProducts(keyword || ""))
   }, [dispatch, keyword])
 
