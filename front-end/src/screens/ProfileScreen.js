@@ -137,7 +137,7 @@ const ProfileScreen = () => {
                   <td colSpan='6' style={{ color: "white", padding: "1rem" }}>
                     No Orders Found.
                     <Link to='/' className='ms-2'>
-                      <strong>Order now?</strong>
+                        <strong>Order now?</strong>
                     </Link>
                   </td>
                 </tr>
