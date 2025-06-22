@@ -6,6 +6,7 @@ import {
   productCreateReducer,
   productUpdateReducer,
   productCreateReviewReducer,
+  productTopRatedReducer,
 } from "./reducers/productReducers"
 import { cartReducer } from "./reducers/cartReducers"
 import {
@@ -53,6 +54,7 @@ export const store = configureStore({
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
     productCreateReview: productCreateReviewReducer,
+    productTopRated: productTopRatedReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
