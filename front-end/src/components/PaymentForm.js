@@ -17,9 +17,7 @@ const PaymentForm = ({ amount, orderId }) => {
       Authorization: `Bearer ${userInfo.token}`,
     },
   }
-  useEffect(() => {
-    console.log("🧾 Order ID received by PaymentForm:", orderId)
-  }, [orderId])
+
   useEffect(() => {
     axios
       .post(
