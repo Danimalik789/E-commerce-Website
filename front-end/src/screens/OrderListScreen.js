@@ -81,6 +81,12 @@ const OrderListScreen = () => {
                     </Button>
                   </Link>
                 </td>
+
+                <td>
+                  <Button variant='light' className='btn-sm'>
+                    Mark as Paid
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>

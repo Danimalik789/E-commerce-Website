@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { useStripe, useElements, CardElement } from "@stripe/react-stripe-js"
-import axios from "axios"
+import axios from "../config/axios"
 import { useSelector } from "react-redux"
 
 const PaymentForm = ({ amount, orderId }) => {

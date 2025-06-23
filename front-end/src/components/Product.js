@@ -11,6 +11,7 @@ const Product = ({ product }) => {
           src={product.image}
           variant='top'
           className='image-container'
+          id="product-image"
         />
       </Link>
 

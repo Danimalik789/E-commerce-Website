@@ -17,6 +17,12 @@ h2 {
     margin: 0.1rem;
 }
 
+.product-image {
+    width: 300px;       /* or whatever fixed size fits your layout */
+  height: 300px;
+  object-fit: cover;  /* ensures image fills the box without distortion */
+  border-radius: 8px;
+}
 
 .image-container {
     width: 100%;
@@ -53,7 +59,7 @@ h2 {
     height: 300px;
     padding: 30px;
     margin: 40px;
-    border-radius: 80px;
+    border-radius: 50%;
 }
 
 .carousel a {
